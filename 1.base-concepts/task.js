@@ -16,9 +16,22 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
+  "use strict";
   let totalAmount;
 
-  // код для задачи №2 писать здесь
+  if (isNaN(percent)) {
+    return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
+  } else if (isNaN(contribution)) {
+    return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`;
+  } else if (isNaN(amount)) {
+    return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
+  } else {
+    let s = amount - contribution;
+    let n = Math.round((date - new Date()) / 1000 / 60 / 60 / 24 / 30.5);
+    let p = percent / 100 / 12;
+    let monthPayment = s * (p + p / (Math.pow((1 + p), n) - 1));
+    totalAmount = Math.round(monthPayment * n * 100) / 100;
+  }
 
   return totalAmount;
 }
