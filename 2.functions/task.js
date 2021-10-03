@@ -47,5 +47,22 @@ function makeWork(arrOfArr, func) {
 
 // Задание 3
 function worker2(arr) {
-  // Ваш код
+  let min = Infinity;
+  let max = -Infinity;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+    
+    if (arr[i] > max) {
+      max = arr[i];
+    } 
+  }
+
+  return max - min;
 }
+
+// проверка задания 3
+console.log('Проверка задания №3: ' + makeWork([[-10, -20, -40], [10, 20, 30]],worker2));
+console.log('Проверка задания №3: ' + makeWork([[0, 0, 0], [-1, -99]],worker2));
