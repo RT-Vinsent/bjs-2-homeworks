@@ -22,7 +22,7 @@ class PrintEditionItem {
   }
 
   fix() {
-    this.state = this.state * 1.5;
+    this.state *= 1.5;
   }
 
 }
@@ -63,4 +63,35 @@ class DetectiveBook extends Book {
   }
 }
 
-
+class Library {
+  constructor(name) {
+    this.name = name;
+    this.books = [];
+  }
+  
+  addBook(book) {
+    if (book.state > 30) {
+      this.books.push(book);
+    }
+  }
+  
+  findBookBy(type, value) {
+    for (let book of this.books) {
+      if (book[type] === value) {
+        return book;
+      } 
+    }
+    return null;
+  }
+  
+  giveBookByName(bookName) {
+    for (let book in this.books) {
+      if (this.books[book].name === bookName) {
+        const giveBook = this.books[book];
+        this.books.splice(book, 1);
+        return giveBook;
+      } 
+    }
+    return null;
+  }
+}
