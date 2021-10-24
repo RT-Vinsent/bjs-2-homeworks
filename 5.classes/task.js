@@ -1,3 +1,5 @@
+//Задача №1.
+
 class PrintEditionItem {
   constructor(name, releaseDate, pagesCount) {
     this.name = name;
@@ -63,6 +65,8 @@ class DetectiveBook extends Book {
   }
 }
 
+//Задача №2.
+
 class Library {
   constructor(name) {
     this.name = name;
@@ -95,3 +99,50 @@ class Library {
     return null;
   }
 }
+
+//Задача №3 со звёздочкой.
+
+class Student {
+    constructor (fullname) {
+      this.name = fullname,
+      this.marks = {};
+    }
+  
+    addMark(mark, subjectName) {
+      if (mark < 1 || mark > 5 || typeof mark !== "number") {
+        return console.log('Ошибка, оценка должна быть числом от 1 до 5');
+      } else if (this.marks[subjectName] === undefined) {
+        this.marks[subjectName] = [mark];
+      } else if (this.marks[subjectName]) {
+        this.marks[subjectName].push(mark);
+      }
+    }
+  
+    getAverageBySubject(subjectName) {
+      if (this.marks[subjectName]) {
+        let avg = 0;
+        for (let value of this.marks[subjectName]) {
+          avg += value;
+        }
+        return avg / this.marks[subjectName].length;
+      } else {
+        return console.log("Несуществующий предмет");
+      }
+    }
+  
+    getAverage() {
+      let avgAll = 0;
+      let index = 0;
+      for (let prop in this.marks) {
+        avgAll += this.getAverageBySubject(prop);
+        index += 1;
+      }
+      return avgAll / index;
+    }
+  
+    exclude(reason) {
+      delete this.marks;
+      this.excluded = reason;
+    }
+  
+  }
