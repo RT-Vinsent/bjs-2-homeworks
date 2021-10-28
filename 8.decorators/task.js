@@ -11,18 +11,16 @@ function cachingDecoratorNew(func) {
     if (index !== -1) {
       console.log("Из кэша: " + cache[index].value);
       return ("Из кэша: " + cache[index].value);
-    } else {
-      let value = func(...args);
-      
-      cache.push({hash, value})
+    } 
+    
+    let value = func(...args);
 
-      if (cache.length > 5) {
-        cache.shift();
-      }
+    cache.push({hash, value})
 
-      console.log("Вычисляем: " + value);
-      return ("Вычисляем: " + value);
-    }
+    if (cache.length > 5) {cache.shift()}
+
+    console.log("Вычисляем: " + value);
+    return ("Вычисляем: " + value);
   }
   return wrapper;
 }
@@ -38,15 +36,14 @@ function debounceDecoratorNew(func, ms) {
     if (!flag) {
       func.apply(this, args);
       flag = true;
-    } else {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => { 
-        func.apply(this, args);
-        flag = false
-      }, ms);
-      
-      //setTimeout(() => {console.log('проигнорировано')}, ms);
-    }
+    } 
+
+    clearTimeout(timeout);
+    timeout = setTimeout(() => { 
+      func.apply(this, args);
+      flag = false
+    }, ms);
+    
   }
   return wrapper;
 }
@@ -56,21 +53,24 @@ function debounceDecorator2(func, ms) {
   
   let timeout;
   let flag = false;
-  let counter = 0;
+  wrapper.counter = 0;
 
   function wrapper(...args) {
-    counter++;
-    console.log(counter)
+    wrapper.counter += 1;
+    
     if (!flag) {
       func.apply(this, args);
       flag = true;
-    } else {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => { 
-        func.apply(this, args);
-        flag = false
-      }, ms);
-    }
+    } 
+    
+    clearTimeout(timeout);
+    timeout = setTimeout(() => { 
+      func.apply(this, args);
+      flag = false;
+    }, ms);
+
+    console.log(`Исходная функция вызвана ${wrapper.counter} раз`)
+    
   }
   return wrapper;
 }
